@@ -1,0 +1,113 @@
+
+
+
+// DOM
+let resultsel = document.getElementById('results')
+let lengthel = document.getElementById('length')
+let uppercaseel = document.getElementById('uppercase')
+let lowercaseel = document.getElementById('lowercase')
+let numbersel = document.getElementById('numbers')
+let specialcharsel = document.getElementById('specialchars')
+let generateel = document.getElementById('generate')
+let copyel = document.getElementById('copy')
+
+
+
+// Character Generators
+function getRandomlower(numChars) {
+    return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+}
+
+
+function getRandomupper() {
+    return String.fromCharCode(Math.floor(Math.random() * 26) + 65)
+}
+
+function getRandomNumber() {
+    return String.fromCharCode(Math.floor(Math.random()* 10) + 48)
+}
+
+function getRandomspecialchar() {
+    let specialchar = '!"#$%&(*+,-./:;<=>?@[\]^_`{|}~';
+    return specialchar[Math.floor(Math.random() * specialchar.length)];
+}
+
+function getPwdLength(){
+    let length = prompt("How long do you want your password to be?")
+    return length
+}
+
+function getNumericCharacters(){
+    let numerics = prompt("Do you want digits in your password? (0-9)? Y/N");
+    return numerics
+}
+
+function getSpecialCharacters(){
+    let specialCharacters = prompt("Do you want special characters? Y/N")
+    return specialCharacters
+}
+
+function getUpperCharacters(){
+    let upperChars = prompt("Do you want uppercase characters? Y/N")
+    return upperChars
+}
+
+function getLowerChars(){
+    let lowerchars = prompt("Do you want lowercase characters? Y/N")
+    return lowerchars
+}
+
+function makePassword(){
+    let length = getPwdLength()
+    let numerics = getNumericCharacters()
+    let specialChars = getSpecialCharacters()
+    let upperchars = getUpperCharacters()
+    let lowerchars = getLowerChars()
+
+    if (numerics === "N" && specialChars === "N" && upperchars === "N" && lowerchars == "N") {
+        alert("You have to pick at least one character type!")
+        let length = getPwdLength()
+        let numerics = getNumericCharacters()
+        let specialChars = getSpecialCharacters()
+        let upperchars = getUpperCharacters()
+        let lowerchars = getLowerChars()
+    }
+
+    let allowedFunctions = []
+
+    if (numerics === "Y") {
+        allowedFunctions.push(getRandomNumber)
+    }
+
+    if (specialChars === "Y") {
+        allowedFunctions.push(getRandomspecialchar)
+    }
+
+    if (lowerchars === "Y") {
+        allowedFunctions.push(getRandomlower)
+    }
+
+    if (upperchars === "Y") {
+        allowedFunctions.push(getRandomupper)
+    } 
+
+
+    let password = []
+    for (var i = 0; i < allowedFunctions.length; i++) { 
+        let newChar = allowedFunctions[i]()
+        password.push(newChar)
+    }
+
+    for (var i = 0; i < length - allowedFunctions.length; i++) {
+        let newChar = allowedFunctions[Math.floor(Math.random() * allowedFunctions.length)]()
+        password.push(newChar)
+
+    }
+
+    return password.join("")
+
+}
+
+function sayPoop() {
+    prompt("shit in my mouth")
+}
