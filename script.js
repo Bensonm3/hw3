@@ -32,14 +32,16 @@ function getRandomspecialchar() {
     return specialchar[Math.floor(Math.random() * specialchar.length)];
 }
 
+// User Input Password characteristics
 function getPwdLength(){
-    let length = prompt("How long do you want your password to be?")
+    let length = prompt("How long do you want your password to be? (8 - 128)")
     return length
 }
 
 function getNumericCharacters(){
     let numerics = prompt("Do you want digits in your password? (0-9)? Y/N");
     return numerics
+    
 }
 
 function getSpecialCharacters(){
@@ -63,15 +65,47 @@ function makePassword(){
     let specialChars = getSpecialCharacters()
     let upperchars = getUpperCharacters()
     let lowerchars = getLowerChars()
-
+    
+    // Password characteristics entry checks
+    if (length < 8 || length > 128) {
+        alert("The number of characters must be between 8 and 128, lets try that again..")
+        length = getPwdLength()
+    }
+    if (isNaN(length) == true) {
+        alert("Your length has to be a number! Lets try that again..")
+        length = getPwdLength()
+    }
     if (numerics === "N" && specialChars === "N" && upperchars === "N" && lowerchars == "N") {
         alert("You have to pick at least one character type!")
-        let length = getPwdLength()
-        let numerics = getNumericCharacters()
-        let specialChars = getSpecialCharacters()
-        let upperchars = getUpperCharacters()
-        let lowerchars = getLowerChars()
+        numerics = getNumericCharacters()
+        specialChars = getSpecialCharacters()
+        upperchars = getUpperCharacters()
+        lowerchars = getLowerChars()
     }
+
+    if (numerics !=="Y" && numerics !=="N") {
+        alert("That wasnt a Y or N for whether you want numbers. Lets try again, remember your input is case sensitive")
+        numerics = getNumericCharacters()
+    }
+    if (specialChars !=="Y" && specialChars !=="N") {
+        alert("That wasnt a Y or N for whether you want special characters. Lets try again, remember your input is case sensitive")
+        numerics = numerics
+        specialChars = getSpecialCharacters()
+    }
+    if (upperchars !=="Y" && upperchars !=="N") {
+        alert("That wasnt a Y or N for whether you want uppercase characters. Lets try again, remember your input case sensitive")
+        numerics = numerics
+        specialChars = specialChars
+        upperchars = getUpperCharacters()
+    }
+    if (lowerchars !=="Y" && lowerchars !=="N") {
+        alert("That wasnt a Y or N for whether you want lowercase characters. Lets try again, remember your input is case sensitive")
+        numerics = numerics
+        specialChars = specialChars
+        upperchars = upperchars
+        lowerchars = getLowerChars()
+    }
+   
 
     let allowedFunctions = []
 
@@ -106,8 +140,4 @@ function makePassword(){
 
     return password.join("")
 
-}
-
-function sayPoop() {
-    prompt("shit in my mouth")
 }
